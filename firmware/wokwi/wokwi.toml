@@ -1,0 +1,9 @@
+[wokwi]
+version = 1
+# Build from firmware/wokwi/wokwi_sketch/wokwi_sketch.ino.
+# Arduino CLI output names follow the sketch folder/file name.
+firmware = 'build/wokwi_sketch.ino.bin'
+elf = 'build/wokwi_sketch.ino.elf'
+
+[esp32]
+enable-uart = true

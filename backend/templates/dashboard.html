@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bảng điều khiển | IoT Classroom</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">IoT Và An Toàn</p>
+      <h1>Giám sát nhiệt độ và độ ẩm phòng học</h1>
+    </div>
+    <nav>
+      <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('security_logs') }}">Nhật ký an toàn</a>
+      <details class="account-menu">
+        <summary>{{ username }}</summary>
+        <div class="account-dropdown">
+          <a href="{{ url_for('change_password') }}">Đổi mật khẩu</a>
+          <form method="post" action="{{ url_for('logout') }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit">Đăng xuất</button>
+          </form>
+        </div>
+      </details>
+    </nav>
+  </header>
+
+  <main class="dashboard">
+    <section id="warningBox" class="warning-box hidden">
+      <span id="warningIcon"></span>
+      <span id="warningText"></span>
+    </section>
+
+    <section class="metrics-grid">
+      <article id="tempCard" class="metric-card temperature">
+        <p>Nhiệt độ hiện tại</p>
+        <strong id="temperatureValue">--</strong>
+        <span id="tempStatus" class="metric-status"></span>
+      </article>
+      <article id="humCard" class="metric-card humidity">
+        <p>Độ ẩm hiện tại</p>
+        <strong id="humidityValue">--</strong>
+        <span id="humStatus" class="metric-status"></span>
+      </article>
+      <article class="metric-card status">
+        <p>Trạng thái thiết bị</p>
+        <strong id="deviceStatus">Ngoại tuyến</strong>
+        <span id="lastUpdated">Chưa có dữ liệu</span>
+      </article>
+    </section>
+
+    <section class="content-grid">
+      <article class="panel chart-panel">
+        <div class="panel-heading">
+          <h2>Biểu đồ lịch sử</h2>
+          <p>Cập nhật mỗi 5 giây khi thay đổi, mỗi 1 phút khi giữ nguyên</p>
+        </div>
+        <canvas id="historyChart" height="130"></canvas>
+      </article>
+
+      <article class="panel table-panel">
+        <div class="panel-heading">
+          <h2>Dữ liệu gần nhất</h2>
+          <p>50 bản ghi mới nhất</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Thiết bị</th>
+                <th>Nhiệt độ</th>
+                <th>Độ ẩm</th>
+                <th>Thời gian</th>
+              </tr>
+            </thead>
+            <tbody id="historyTable">
+              <tr>
+                <td colspan="5">Đang tải dữ liệu...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

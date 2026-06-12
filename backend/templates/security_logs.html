@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nhật ký an toàn | IoT Classroom</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body data-latest-log-id="{{ logs[0].id if logs else 0 }}">
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Giám sát an toàn thông tin</p>
+      <h1>Nhật ký an toàn hệ thống</h1>
+    </div>
+    <nav>
+      <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('security_logs') }}">Nhật ký an toàn</a>
+      <details class="account-menu">
+        <summary>{{ username }}</summary>
+        <div class="account-dropdown">
+          <a href="{{ url_for('change_password') }}">Đổi mật khẩu</a>
+          <form method="post" action="{{ url_for('logout') }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit">Đăng xuất</button>
+          </form>
+        </div>
+      </details>
+    </nav>
+  </header>
+
+  <main class="dashboard">
+    <section class="panel">
+      <form method="get" class="filter-form">
+        <label for="severity">Mức độ</label>
+        <select id="severity" name="severity">
+          <option value="">Tất cả</option>
+          <option value="info" {% if severity == "info" %}selected{% endif %}>info</option>
+          <option value="warning" {% if severity == "warning" %}selected{% endif %}>warning</option>
+          <option value="critical" {% if severity == "critical" %}selected{% endif %}>critical</option>
+        </select>
+
+        <label for="event_type">Loại sự kiện</label>
+        <input id="event_type" name="event_type" value="{{ event_type }}" placeholder="invalid_signature">
+
+        <button type="submit">Lọc</button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="table-wrap">
+        <table class="security-log-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Thời gian</th>
+              <th>Mức độ</th>
+              <th>Sự kiện</th>
+              <th>Thiết bị</th>
+              <th>User</th>
+              <th>IP</th>
+              <th>Nội dung</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for log in logs %}
+            <tr>
+              <td>{{ log.id }}</td>
+              <td>{{ format_vietnam_time(log.created_at) }}</td>
+              <td>{{ log.severity }}</td>
+              <td>{{ log.event_type }}</td>
+              <td>{{ log.device_id or "-" }}</td>
+              <td>{{ log.username or "-" }}</td>
+              <td>{{ log.ip_address or "-" }}</td>
+              <td>{{ log.message }}</td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="8">Chưa có nhật ký an toàn.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/security_logs.js') }}"></script>
+</body>
+</html>

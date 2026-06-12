@@ -1,0 +1,7 @@
+[wokwi]
+version = 1
+firmware = 'firmware/wokwi/build/wokwi_sketch.ino.bin'
+elf = 'firmware/wokwi/build/wokwi_sketch.ino.elf'
+
+[esp32]
+enable-uart = true
