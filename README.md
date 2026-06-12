@@ -430,11 +430,10 @@ Backend đã có logic nén dữ liệu lặp:
 chcp 65001
 ```
 
-## 16. Chuẩn Bị Nộp Bài Và Thuyết Trình
+## 16. Chuẩn Bị Nộp Bài
 
-- Xem `CHECKLIST_NOP_BAI.md` để tránh nộp nhầm `.env`, database, virtualenv, build Wokwi, tools và log.
 - Có thể chạy `.\prepare-submission.ps1` để tạo file `iot-classroom-submission.zip` sạch.
-- Xem `HUONG_DAN_THUYET_TRINH.md` để nói theo kịch bản 7-10 phút và chuẩn bị câu trả lời phần hỏi đáp.
+- File nén sạch sẽ không bao gồm `.env`, database, virtualenv, build Wokwi, tools và log.
 
 ## 17. Hướng Phát Triển
 

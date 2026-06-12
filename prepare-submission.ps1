@@ -7,8 +7,6 @@ $outputZip = Join-Path $projectRoot "iot-classroom-submission.zip"
 $files = @(
   "README.md",
   "WOKWI.md",
-  "CHECKLIST_NOP_BAI.md",
-  "HUONG_DAN_THUYET_TRINH.md",
   "wokwi.toml",
   "start-wokwi.ps1",
   "slide_project_iot_an_toan.pptx",
